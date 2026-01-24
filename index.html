@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NS Onboarding Quest 🎮</title>
+    <meta name="description"
+        content="Your gamified journey to join Network School - earn $100 credits + 100 MYR cash reward!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Audio elements -->
+    <audio id="clickSound" preload="auto">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="completeSound" preload="auto">
+        <source src="https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="celebrationSound" preload="auto">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Confetti canvas -->
+    <canvas id="confetti"></canvas>
+
+    <!-- Main App Container -->
+    <div class="app-container">
+
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">◈</span>
+                <span class="logo-text">NS Quest</span>
+            </div>
+            <div class="header-controls">
+                <div class="reset-toggle" id="resetToggle" title="Reset Progress">
+                    <span>↺</span>
+                </div>
+                <div class="sound-toggle" id="soundToggle" title="Toggle Sound">
+                    <span class="sound-on">♫</span>
+                    <span class="sound-off" style="display: none;">♪</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Welcome Screen -->
+        <section class="screen welcome-screen active" id="welcomeScreen">
+            <div class="welcome-content">
+                <div class="welcome-badge animate-float">⬡</div>
+                <h1 class="welcome-title">
+                    <span class="gradient-text">NS Onboarding Quest</span>
+                </h1>
+                <p class="welcome-subtitle">Your gamified journey to join Network School</p>
+
+                <!-- NS Info Card -->
+                <div class="ns-intro-card">
+                    <div class="ns-intro-header">
+                        <span class="ns-intro-icon">✿</span>
+                        <h3>What is Network School?</h3>
+                    </div>
+                    <p class="ns-intro-text">NS is a <strong>startup society</strong> in <strong>Forest City,
+                            Malaysia</strong> (close to Singapore) where entrepreneurs, builders, and creators live and
+                        work together.</p>
+                    <div class="ns-intro-price">
+                        <span class="price-badge">$1,500<span>/month</span></span>
+                        <span class="price-label">All-inclusive</span>
+                    </div>
+                    <div class="ns-intro-includes">
+                        <span class="intro-tag">⌂ Accommodation</span>
+                        <span class="intro-tag">♡ Healthy Food</span>
+                        <span class="intro-tag">★ Gym</span>
+                        <span class="intro-tag">□ Coworking</span>
+                        <span class="intro-tag">▷ Lectures</span>
+                        <span class="intro-tag">◎ Community</span>
+                    </div>
+                    <div class="ns-collage">
+                        <img src="ns-collage.jpg" alt="Life at Network School - gym, coworking, pool, community" />
+                    </div>
+                </div>
+
+                <div class="rewards-card">
+                    <div class="rewards-header">✶ Complete the Quest &amp; Earn</div>
+                    <div class="rewards-list">
+                        <div class="reward-item">
+                            <span class="reward-icon">◇</span>
+                            <div class="reward-info">
+                                <span class="reward-value">$100</span>
+                                <span class="reward-label">NS Credits</span>
+                            </div>
+                        </div>
+                        <div class="reward-divider">+</div>
+                        <div class="reward-item">
+                            <span class="reward-icon">◆</span>
+                            <div class="reward-info">
+                                <span class="reward-value">100 MYR</span>
+                                <span class="reward-label">Cash from me!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="disclaimer-badge">
+                    <span class="disclaimer-icon">ℹ️</span>
+                    <span>I'm an NS member helping you onboard - not official NS staff</span>
+                </div>
+
+                <button class="btn btn-primary btn-lg start-btn" id="startBtn">
+                    <span>Start Your Quest</span>
+                    <span class="btn-icon">→</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Video Screen -->
+        <section class="screen video-screen" id="videoScreen">
+            <div class="screen-content">
+                <div class="stage-header">
+                    <span class="stage-number">Intro</span>
+                    <h2 class="stage-title">Watch the Journey</h2>
+                </div>
+
+                <div class="video-container video-shorts">
+                    <div class="youtube-embed">
+                        <iframe src="https://www.youtube.com/embed/sPiwv4VVeDw" title="Network School Journey"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary continue-btn" id="videoNextBtn">
+                    <span>Continue to Journey Map</span>
+                    <span class="btn-icon">→</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Journey Map Screen -->
+        <section class="screen map-screen" id="mapScreen">
+            <div class="screen-content">
+                <div class="stage-header">
+                    <span class="stage-number">🗺️</span>
+                    <h2 class="stage-title">Your Quest Journey</h2>
+                    <p class="stage-subtitle">Complete each step to finish your onboarding</p>
+                </div>
+
+                <div class="journey-map">
+                    <div class="journey-path"></div>
+
+                    <div class="quest-node" data-stage="1">
+                        <div class="node-icon">📖</div>
+                        <div class="node-info">
+                            <span class="node-title">Read Disclaimer</span>
+                            <span class="node-status">Start here!</span>
+                        </div>
+                        <div class="node-connector"></div>
+                    </div>
+
+                    <div class="quest-node locked" data-stage="2">
+                        <div class="node-icon">📚</div>
+                        <div class="node-info">
+                            <span class="node-title">Explore Wiki</span>
+                            <span class="node-status">🔒 Locked</span>
+                        </div>
+                        <div class="node-connector"></div>
+                    </div>
+
+                    <div class="quest-node locked" data-stage="3">
+                        <div class="node-icon">✍️</div>
+                        <div class="node-info">
+                            <span class="node-title">Apply Now</span>
+                            <span class="node-status">🔒 Locked</span>
+                        </div>
+                        <div class="node-connector"></div>
+                    </div>
+
+                    <div class="quest-node locked" data-stage="4">
+                        <div class="node-icon">⏳</div>
+                        <div class="node-info">
+                            <span class="node-title">Wait for Email</span>
+                            <span class="node-status">🔒 Locked</span>
+                        </div>
+                        <div class="node-connector"></div>
+                    </div>
+
+                    <div class="quest-node locked" data-stage="5">
+                        <div class="node-icon">💳</div>
+                        <div class="node-info">
+                            <span class="node-title">Payment</span>
+                            <span class="node-status">🔒 Locked</span>
+                        </div>
+                        <div class="node-connector"></div>
+                    </div>
+
+                    <div class="quest-node locked" data-stage="6">
+                        <div class="node-icon">👋</div>
+                        <div class="node-info">
+                            <span class="node-title">NS Onboarding</span>
+                            <span class="node-status">🔒 Locked</span>
+                        </div>
+                        <div class="node-connector"></div>
+                    </div>
+
+                    <div class="quest-node locked" data-stage="7">
+                        <div class="node-icon">🛂</div>
+                        <div class="node-info">
+                            <span class="node-title">Passport & Visa Check</span>
+                            <span class="node-status">🔒 Locked</span>
+                        </div>
+                        <div class="node-connector"></div>
+                    </div>
+
+                    <div class="quest-node locked" data-stage="8">
+                        <div class="node-icon">✈️</div>
+                        <div class="node-info">
+                            <span class="node-title">Visa & Travel</span>
+                            <span class="node-status">🔒 Locked</span>
+                        </div>
+                        <div class="node-connector"></div>
+                    </div>
+
+                    <div class="quest-node locked" data-stage="9">
+                        <div class="node-icon">📧</div>
+                        <div class="node-info">
+                            <span class="node-title">Claim Cash Reward</span>
+                            <span class="node-status">🔒 Locked</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stage 1: Disclaimer -->
+        <section class="screen stage-screen" id="stage1">
+            <div class="screen-content">
+                <div class="stage-header">
+                    <span class="stage-number">Stage 1</span>
+                    <h2 class="stage-title">📖 Read the Disclaimer</h2>
+                </div>
+
+                <div class="stage-card">
+                    <div class="disclaimer-content">
+                        <div class="disclaimer-icon-large">👋</div>
+                        <h3>Hey there!</h3>
+                        <p>I'm <strong>Andrei</strong>, a fellow NS member who's been through this journey myself. I'm
+                            here to help you get onboarded!</p>
+
+                        <div class="important-notice">
+                            <span class="notice-icon">⚠️</span>
+                            <div class="notice-text">
+                                <strong>Important:</strong> I'm NOT part of the official NS team. I'm just a member who
+                                wants to help onboard awesome people like you!
+                            </div>
+                        </div>
+
+                        <p>By using my referral link, you'll get <strong>$100 NS credits</strong>, and as a thank you,
+                            I'll give you <strong>100 MYR (~$25) in cash</strong> when you arrive!</p>
+                    </div>
+
+                    <div class="checkbox-container">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="disclaimerCheck">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">I understand this is Andrei's personal guide, not official NS
+                                content</span>
+                        </label>
+                    </div>
+
+                    <div class="stage-nav">
+                        <button class="btn btn-secondary back-btn" data-back="map">
+                            <span class="btn-icon">←</span>
+                            <span>Back to Map</span>
+                        </button>
+                        <button class="btn btn-primary complete-btn" id="stage1Btn" disabled>
+                            <span>Complete Stage 1</span>
+                            <span class="btn-icon">✓</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stage 2: Wiki -->
+        <section class="screen stage-screen" id="stage2">
+            <div class="screen-content">
+                <div class="stage-header">
+                    <span class="stage-number">Stage 2</span>
+                    <h2 class="stage-title">📚 Explore the NS Wiki</h2>
+                </div>
+
+                <div class="stage-card">
+                    <div class="wiki-preview">
+                        <div class="wiki-icon">📚</div>
+                        <h3>NS Wiki</h3>
+                        <p>Everything you need to know about Network School is in the wiki. Check it out before
+                            applying!</p>
+
+                        <div class="ns-description">
+                            <div class="ns-desc-header">
+                                <span class="ns-desc-icon">🏢</span>
+                                <strong>What is Network School?</strong>
+                            </div>
+                            <p>NS is a <strong>startup society</strong> where entrepreneurs, builders, and creators live
+                                and work together. For <strong>$1,500/month</strong> per person, you get an
+                                all-inclusive experience:</p>
+                            <div class="ns-includes">
+                                <span class="include-tag">🏨 Accommodation</span>
+                                <span class="include-tag">🥗 Healthy Food</span>
+                                <span class="include-tag">💪 Gym Access</span>
+                                <span class="include-tag">💻 Coworking Space</span>
+                                <span class="include-tag">🎓 Lectures & Events</span>
+                                <span class="include-tag">🌐 Community</span>
+                            </div>
+                        </div>
+
+                        <div class="wiki-topics">
+                            <span class="topic-tag">💡 What is NS?</span>
+                            <span class="topic-tag">🏨 Accommodations</span>
+                            <span class="topic-tag">💰 Pricing</span>
+                            <span class="topic-tag">🌍 Community</span>
+                            <span class="topic-tag">📅 Programs</span>
+                        </div>
+
+                        <a href="https://ns.com/wiki" target="_blank" class="btn btn-secondary wiki-btn" id="wikiLink">
+                            <span>Open NS Wiki</span>
+                            <span class="btn-icon">↗</span>
+                        </a>
+                    </div>
+
+                    <div class="checkbox-container">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="wikiCheck">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">I've explored the wiki and understand what NS is about</span>
+                        </label>
+                    </div>
+
+                    <div class="stage-nav">
+                        <button class="btn btn-secondary back-btn" data-back="1">
+                            <span class="btn-icon">←</span>
+                            <span>Back</span>
+                        </button>
+                        <button class="btn btn-primary complete-btn" id="stage2Btn" disabled>
+                            <span>Complete Stage 2</span>
+                            <span class="btn-icon">✓</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stage 3: Apply -->
+        <section class="screen stage-screen" id="stage3">
+            <div class="screen-content">
+                <div class="stage-header">
+                    <span class="stage-number">Stage 3</span>
+                    <h2 class="stage-title">✍️ Apply to Network School</h2>
+                </div>
+
+                <div class="stage-card">
+                    <div class="apply-content">
+                        <div class="apply-icon">🚀</div>
+                        <h3>Ready to Apply?</h3>
+                        <p>Use my referral link below to apply. This gets you <strong>$100 in NS credits</strong>!</p>
+
+                        <div class="google-signin-info">
+                            <div class="google-icon">🔐</div>
+                            <div class="google-text">
+                                <strong>Sign in with Google Account</strong>
+                                <p>For better user experience, your NS profile will be connected to your Google account.
+                                    This keeps your profile secure and makes login easy!</p>
+                            </div>
+                        </div>
+
+                        <div class="referral-badge">
+                            <span class="referral-icon">🔗</span>
+                            <span class="referral-text">Andrei's Referral Link</span>
+                        </div>
+
+                        <a href="https://ns.com/andreikun/apply" target="_blank"
+                            class="btn btn-primary btn-lg apply-btn" id="applyLink">
+                            <span>Apply Now</span>
+                            <span class="btn-icon">→</span>
+                        </a>
+
+                        <p class="apply-note">Fill out the application form completely. It only takes a few minutes!</p>
+                    </div>
+
+                    <div class="checkbox-container">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="applyCheck">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">I've submitted my application through the referral link</span>
+                        </label>
+                    </div>
+
+                    <div class="stage-nav">
+                        <button class="btn btn-secondary back-btn" data-back="2">
+                            <span class="btn-icon">←</span>
+                            <span>Back</span>
+                        </button>
+                        <button class="btn btn-primary complete-btn" id="stage3Btn" disabled>
+                            <span>Complete Stage 3</span>
+                            <span class="btn-icon">✓</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stage 4: Wait -->
+        <section class="screen stage-screen" id="stage4">
+            <div class="screen-content">
+                <div class="stage-header">
+                    <span class="stage-number">Stage 4</span>
+                    <h2 class="stage-title">⏳ Wait for Confirmation</h2>
+                </div>
+
+                <div class="stage-card">
+                    <div class="wait-content">
+                        <div class="wait-animation">
+                            <div class="clock-icon">⏰</div>
+                        </div>
+                        <h3>Application Submitted!</h3>
+                        <p>Now the NS team will review your application. This usually takes:</p>
+
+                        <div class="timeline-badge">
+                            <span class="timeline-icon">📅</span>
+                            <span class="timeline-text">2-3 working days</span>
+                        </div>
+
+                        <div class="wait-tips">
+                            <h4>What to expect:</h4>
+                            <ul>
+                                <li>✉️ You'll receive a confirmation email</li>
+                                <li>💳 The email will include a payment link</li>
+                                <li>📱 Check your spam folder too!</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="checkbox-container">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="waitCheck">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">I received my confirmation email with payment link</span>
+                        </label>
+                    </div>
+
+                    <div class="stage-nav">
+                        <button class="btn btn-secondary back-btn" data-back="3">
+                            <span class="btn-icon">←</span>
+                            <span>Back</span>
+                        </button>
+                        <button class="btn btn-primary complete-btn" id="stage4Btn" disabled>
+                            <span>Complete Stage 4</span>
+                            <span class="btn-icon">✓</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stage 5: Payment -->
+        <section class="screen stage-screen" id="stage5">
+            <div class="screen-content">
+                <div class="stage-header">
+                    <span class="stage-number">Stage 5</span>
+                    <h2 class="stage-title">💳 Complete Payment</h2>
+                </div>
+
+                <div class="stage-card">
+                    <div class="payment-content">
+                        <div class="payment-icon">💳</div>
+                        <h3>Almost There!</h3>
+                        <p>Complete your payment using the link from your confirmation email.</p>
+
+                        <div class="payment-info">
+                            <div class="info-item">
+                                <span class="info-icon">🔒</span>
+                                <span>Secure payment</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-icon">💰</span>
+                                <span>Remember: $100 credits from referral!</span>
+                            </div>
+                        </div>
+
+                        <p class="payment-note">Use the payment link from your confirmation email to complete this step.
+                        </p>
+                    </div>
+
+                    <div class="checkbox-container">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="paymentCheck">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">I've completed my payment</span>
+                        </label>
+                    </div>
+
+                    <div class="stage-nav">
+                        <button class="btn btn-secondary back-btn" data-back="4">
+                            <span class="btn-icon">←</span>
+                            <span>Back</span>
+                        </button>
+                        <button class="btn btn-primary complete-btn" id="stage5Btn" disabled>
+                            <span>Complete Stage 5</span>
+                            <span class="btn-icon">✓</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stage 6: NS Onboarding -->
+        <section class="screen stage-screen" id="stage6">
+            <div class="screen-content">
+                <div class="stage-header">
+                    <span class="stage-number">Stage 6</span>
+                    <h2 class="stage-title">👋 NS Onboarding</h2>
+                </div>
+
+                <div class="stage-card">
+                    <div class="onboarding-content">
+                        <div class="onboarding-icon">💬</div>
+                        <h3>Welcome to the Community!</h3>
+                        <p>After payment, you'll complete the NS onboarding process where you'll provide additional
+                            information to NS.</p>
+
+                        <div class="onboarding-info">
+                            <div class="info-item">
+                                <span class="info-icon">📝</span>
+                                <span>Complete your profile at <a href="https://ns.com/onboarding"
+                                        target="_blank">ns.com/onboarding</a></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-icon">💬</span>
+                                <span>NS will add you to the <strong>NS Discord server</strong></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-icon">🤝</span>
+                                <span>Connect with the community before you arrive!</span>
+                            </div>
+                        </div>
+
+                        <a href="https://ns.com/onboarding" target="_blank" class="btn btn-secondary"
+                            id="onboardingLink">
+                            <span>Go to NS Onboarding</span>
+                            <span class="btn-icon">↗</span>
+                        </a>
+                    </div>
+
+                    <div class="checkbox-container">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="onboardingCheck">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">I've completed the NS onboarding and joined the Discord</span>
+                        </label>
+                    </div>
+
+                    <div class="stage-nav">
+                        <button class="btn btn-secondary back-btn" data-back="5">
+                            <span class="btn-icon">←</span>
+                            <span>Back</span>
+                        </button>
+                        <button class="btn btn-primary complete-btn" id="stage6Btn" disabled>
+                            <span>Complete Stage 6</span>
+                            <span class="btn-icon">✓</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stage 7: Passport & Visa Check -->
+        <section class="screen stage-screen" id="stage7">
+            <div class="screen-content">
+                <div class="stage-header">
+                    <span class="stage-number">Stage 7</span>
+                    <h2 class="stage-title">🛂 Check Your Passport & Visa</h2>
+                </div>
+
+                <div class="stage-card">
+                    <div class="passport-content">
+                        <div class="passport-icon">🛂</div>
+                        <h3>How Long Can You Stay?</h3>
+                        <p>Before booking flights, check how long you can stay in Malaysia visa-free with your passport:
+                        </p>
+
+                        <a href="https://www.passportindex.org/" target="_blank"
+                            class="btn btn-secondary btn-lg passport-btn" id="passportLink">
+                            <span>🌍 Check at PassportIndex.org</span>
+                            <span class="btn-icon">↗</span>
+                        </a>
+
+                        <div class="travel-routes">
+                            <h4>✈️ Best Arrival Route for You:</h4>
+                            <div class="route-card route-singapore">
+                                <div class="route-flag">🇸🇬</div>
+                                <div class="route-info">
+                                    <strong>Via Singapore (Recommended)</strong>
+                                    <p>If you have visa-free entry to Singapore, fly there first, then cross to Johor.
+                                        Singapore has more flight options and is closer to NS!</p>
+                                </div>
+                            </div>
+                            <div class="route-card route-malaysia">
+                                <div class="route-flag">🇲🇾</div>
+                                <div class="route-info">
+                                    <strong>Via Kuala Lumpur or Johor Bahru</strong>
+                                    <p>If you don't have visa-free entry to Singapore, fly directly to Kuala Lumpur
+                                        (KUL) or Senai International Airport in Johor Bahru (JHB).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checkbox-container">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="passportCheck">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">I've checked my visa requirements and planned my arrival
+                                route</span>
+                        </label>
+                    </div>
+
+                    <div class="stage-nav">
+                        <button class="btn btn-secondary back-btn" data-back="6">
+                            <span class="btn-icon">←</span>
+                            <span>Back</span>
+                        </button>
+                        <button class="btn btn-primary complete-btn" id="stage7Btn" disabled>
+                            <span>Complete Stage 7</span>
+                            <span class="btn-icon">✓</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stage 8: Visa & Travel -->
+        <section class="screen stage-screen" id="stage8">
+            <div class="screen-content">
+                <div class="stage-header">
+                    <span class="stage-number">Stage 8</span>
+                    <h2 class="stage-title">✈️ Visa & Arrival Cards</h2>
+                </div>
+
+                <div class="stage-card">
+                    <div class="visa-content">
+                        <div class="visa-icon">✈️</div>
+                        <h3>Travel Prep</h3>
+                        <p>Here's what you need to prepare before coming to NS:</p>
+
+                        <div class="arrival-cards">
+                            <div class="arrival-card">
+                                <div class="card-flag">🇲🇾</div>
+                                <div class="card-info">
+                                    <span class="card-title">Malaysia MDAC</span>
+                                    <span class="card-desc">Complete within 3 days of entry</span>
+                                </div>
+                                <a href="https://ns.com/mdac" target="_blank" class="card-link">Open →</a>
+                            </div>
+                            <div class="arrival-card">
+                                <div class="card-flag">🇸🇬</div>
+                                <div class="card-info">
+                                    <span class="card-title">Singapore SGAC</span>
+                                    <span class="card-desc">If arriving via Singapore</span>
+                                </div>
+                                <a href="https://ns.com/sdac" target="_blank" class="card-link">Open →</a>
+                            </div>
+                        </div>
+
+                        <div class="location-box">
+                            <span class="location-icon">📍</span>
+                            <div class="location-text">
+                                <strong>NS Location:</strong><br>
+                                Forest City Marina Hotel, Jalan Forest City 1,<br>
+                                Pulau Satu, Johor, Gelang Patah, 81550
+                            </div>
+                        </div>
+
+                        <div class="documents-section">
+                            <h4>📄 Documents you'll want to bring</h4>
+                            <p class="docs-subtitle">Grab them at <a href="https://ns.com/documents"
+                                    target="_blank">ns.com/documents</a></p>
+                            <ul class="docs-list">
+                                <li>🏨 Your hotel booking confirmation</li>
+                                <li>📄 NS invitation letter</li>
+                                <li>✈️ Return tickets (before your visa-free stay ends!)</li>
+                            </ul>
+                            <div class="pro-tip">
+                                <span class="tip-icon">💡</span>
+                                <span class="tip-text"><strong>Pro tip from me:</strong> You don't need to show these at
+                                    immigration unless they ask. Just have them ready in case!</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checkbox-container">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="visaCheck">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">I've prepared my travel documents</span>
+                        </label>
+                    </div>
+
+                    <div class="stage-nav">
+                        <button class="btn btn-secondary back-btn" data-back="7">
+                            <span class="btn-icon">←</span>
+                            <span>Back</span>
+                        </button>
+                        <button class="btn btn-primary complete-btn" id="stage8Btn" disabled>
+                            <span>Complete Stage 8</span>
+                            <span class="btn-icon">✓</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stage 9: Email for Cash -->
+        <section class="screen stage-screen" id="stage9">
+            <div class="screen-content">
+                <div class="stage-header">
+                    <span class="stage-number">Stage 9</span>
+                    <h2 class="stage-title">📧 Claim Your Cash Reward!</h2>
+                </div>
+
+                <div class="stage-card">
+                    <div class="email-content">
+                        <div class="cash-icon">💵</div>
+                        <h3>You're Almost Done!</h3>
+                        <p>Enter the email you used for your NS application. When you arrive, I'll give you <strong>100
+                                MYR (~$25) in cash</strong>!</p>
+
+                        <div class="email-form">
+                            <input type="email" id="emailInput" class="email-input" placeholder="youremail@example.com"
+                                required>
+                            <p class="email-note">This should be the same email you used with my referral link</p>
+                        </div>
+
+                        <div class="cash-promise">
+                            <span class="promise-icon">🤝</span>
+                            <span class="promise-text">I promise to give you 100 MYR when you arrive at NS!</span>
+                        </div>
+
+                        <div class="contact-section">
+                            <h4>📞 Need Help?</h4>
+                            <p>You can use official NS support, but if you want more personal help, feel free to reach
+                                out to me:</p>
+                            <div class="contact-card">
+                                <div class="contact-avatar">👋</div>
+                                <div class="contact-info">
+                                    <strong>Andrei</strong>
+                                    <p>Telegram: <a href="https://t.me/andreikun" target="_blank">@andreikun</a></p>
+                                    <p class="contact-note">I'm happy to help you with any questions about NS!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stage-nav">
+                        <button class="btn btn-secondary back-btn" data-back="8">
+                            <span class="btn-icon">←</span>
+                            <span>Back</span>
+                        </button>
+                        <button class="btn btn-primary complete-btn btn-lg" id="stage9Btn">
+                            <span>Complete Quest & Claim Reward!</span>
+                            <span class="btn-icon">🎉</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Celebration Screen -->
+        <section class="screen celebration-screen" id="celebrationScreen">
+            <div class="celebration-content">
+                <div class="celebration-icon animate-bounce">🎉</div>
+                <h1 class="celebration-title">
+                    <span class="gradient-text">Quest Complete!</span>
+                </h1>
+                <p class="celebration-subtitle">You've finished the NS Onboarding Quest!</p>
+
+                <div class="completion-card">
+                    <h3>What's Next?</h3>
+                    <ul class="next-steps">
+                        <li>✅ Your application is submitted</li>
+                        <li>✅ You know the travel requirements</li>
+                        <li>✅ Your email is saved for the cash reward</li>
+                        <li>🎁 See you at NS - don't forget your 100 MYR!</li>
+                    </ul>
+                </div>
+
+                <div class="social-share">
+                    <p>Share your journey:</p>
+                    <div class="share-buttons">
+                        <button class="share-btn twitter">𝕏</button>
+                        <button class="share-btn copy" id="copyLink">📋</button>
+                    </div>
+                </div>
+
+                <button class="btn btn-secondary" id="restartBtn">
+                    <span>Start Over</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Back to Map Button (floating) -->
+        <button class="back-to-map" id="backToMap" style="display: none;">
+            <span>🗺️</span>
+            <span>Map</span>
+        </button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
